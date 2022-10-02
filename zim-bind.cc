@@ -1,5 +1,5 @@
 #include "zim-sys/zim-bind.h"
-#include "zim-sys/src/lib.rs.h"
+#include "zim-sys/src/binding.rs.h"
 using namespace zim;
 
 #include "rust/cxx.h"

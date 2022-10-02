@@ -20,7 +20,7 @@ fn find_system_lib() -> Vec<String> {
 fn main() {
     find_system_lib();
 
-    let sources = ["src/lib.rs"];
+    let sources = ["src/binding.rs"];
     cxx_build::bridges(sources)
         .file("zim-bind.cc")
         .flag_if_supported("-std=c++14")
