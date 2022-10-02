@@ -5,9 +5,10 @@ edition = "2021"
 links =  "zim"
 
 [dependencies]
+cxx = "1.0.78"
 
 [build-dependencies]
-bindgen = "0.60.1"
+cxx-build = "1.0.78"
 
 [target.'cfg(target_family = "unix")'.build-dependencies]
 pkg-config = "0.3.25"
