@@ -124,3 +124,10 @@ bool suggestioniterator_operator_neq(const SuggestionIterator &suggestioniterato
 void suggestioniterator_operator_inc(SuggestionIterator &suggestioniterator);
 unique_ptr<SuggestionItem> suggestioniterator_operator_star(SuggestionIterator &suggestioniterator);
 unique_ptr<Entry> suggestioniterator_getEntry(const SuggestionIterator &suggestioniterator);
+
+// FILE: uuid.h
+unique_ptr<Uuid> uuid_ctor();
+unique_ptr<Uuid> uuid_ctor_str(rust::Str uuid); // uuid must be 16 characters long and valid
+unique_ptr<Uuid> uuid_generate(rust::Str value);
+bool uuid_operator_eq(const Uuid &uuid, const Uuid &o);
+unique_ptr<string> uuid_std_string(const Uuid &uuid);

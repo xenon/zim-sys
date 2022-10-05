@@ -24,6 +24,8 @@ pub mod ffi {
         pub type SuggestionResultSet;
         pub type SuggestionIterator;
         pub type SuggestionItem;
+
+        pub type Uuid;
     }
 
     unsafe extern "C++" {
@@ -147,7 +149,6 @@ pub mod ffi {
         pub fn suggestionresultset_size(suggestionresultset: &SuggestionResultSet) -> i32;
 
         // FILE: suggestion_iterator.h
-
         pub fn suggestioniterator_operator_eq(
             suggestioniterator: &SuggestionIterator,
             o: &SuggestionIterator,
@@ -163,5 +164,12 @@ pub mod ffi {
         pub fn suggestioniterator_getEntry(
             suggestioniterator: &SuggestionIterator,
         ) -> UniquePtr<Entry>;
+
+        // FILE: uuid.h
+        pub fn uuid_ctor() -> UniquePtr<Uuid>;
+        pub fn uuid_ctor_str(uuid: &str) -> UniquePtr<Uuid>;
+        pub fn uuid_generate(value: &str) -> UniquePtr<Uuid>;
+        pub fn uuid_operator_eq(uuid: &Uuid, o: &Uuid) -> bool;
+        pub fn uuid_std_string(uuid: &Uuid) -> UniquePtr<CxxString>;
     }
 }

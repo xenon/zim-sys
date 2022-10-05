@@ -512,3 +512,61 @@ unique_ptr<Entry> suggestioniterator_getEntry(const SuggestionIterator &suggesti
         return NULL;
     }
 }
+
+// FILE: uuid.h
+
+unique_ptr<Uuid> uuid_ctor()
+{
+    try
+    {
+        return make_unique<Uuid>();
+    }
+    catch (...)
+    {
+        return NULL;
+    }
+}
+unique_ptr<Uuid> uuid_ctor_str(rust::Str uuid)
+{
+    if (uuid.size() != 16)
+    {
+        return NULL;
+    }
+    try
+    {
+        string s = string(uuid);
+        const char *cs = s.c_str();
+        return make_unique<Uuid>(cs);
+    }
+    catch (...)
+    {
+        return NULL;
+    }
+}
+unique_ptr<Uuid> uuid_generate(rust::Str value)
+{
+    try
+    {
+        return make_unique<Uuid>(Uuid::generate(string(value)));
+    }
+    catch (...)
+    {
+        return NULL;
+    }
+}
+bool uuid_operator_eq(const Uuid &uuid, const Uuid &o)
+{
+    return uuid.operator==(o);
+}
+unique_ptr<string> uuid_std_string(const Uuid &uuid)
+{
+    try
+    {
+        string s = static_cast<string>(uuid);
+        return make_unique<string>(s);
+    }
+    catch (...)
+    {
+        return NULL;
+    }
+}

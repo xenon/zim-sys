@@ -193,3 +193,39 @@ fn suggestion_test() {
     let size = ffi::suggestionresultset_size(results);
     assert!(size == 1);
 }
+
+// Test making a trivial uuid and reading it back
+#[test]
+fn uuid_test_1() {
+    let uuid = ffi::uuid_ctor();
+    assert!(!uuid.is_null());
+    let uuid = uuid.as_ref().unwrap();
+
+    let uuid_str = ffi::uuid_std_string(uuid);
+    assert!(!uuid_str.is_null());
+    let uuid_str = uuid_str.as_ref().unwrap();
+
+    assert_eq!(uuid_str.to_string(), "00000000-0000-0000-0000-000000000000");
+}
+
+// Test making a uuid from data, reading it back and comparing it against another
+#[test]
+fn uuid_test_2() {
+    let uuid = ffi::uuid_ctor_str("1111111111111111");
+    assert!(!uuid.is_null());
+    let uuid = uuid.as_ref().unwrap();
+
+    let uuid_str = ffi::uuid_std_string(uuid);
+    assert!(!uuid_str.is_null());
+    let uuid_str = uuid_str.as_ref().unwrap();
+
+    assert_eq!(uuid_str.to_string(), "31313131-3131-3131-3131-313131313131");
+
+    let uuid_2 = ffi::uuid_ctor();
+    assert!(!uuid_2.is_null());
+    let uuid_2 = uuid_2.as_ref().unwrap();
+
+    assert!(ffi::uuid_operator_eq(uuid, uuid));
+    assert!(ffi::uuid_operator_eq(uuid_2, uuid_2));
+    assert!(!ffi::uuid_operator_eq(uuid, uuid_2));
+}
