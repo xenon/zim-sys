@@ -30,5 +30,5 @@ Most of these are do to incompatible types that need to be converted.
 ### item.h
 - getDirectAccessInformation()
 
-## version.h
+### version.h
 - getVersions()
