@@ -38,6 +38,7 @@ pub mod ffi {
         pub fn archive_getAllEntryCount(archive: &Archive) -> u32;
         pub fn archive_getEntryCount(archive: &Archive) -> u32;
         pub fn archive_getArticleCount(archive: &Archive) -> u32;
+        pub fn archive_getUuid(archive: &Archive) -> UniquePtr<Uuid>;
         pub fn archive_getMetadata(archive: &Archive, name: &str) -> UniquePtr<CxxString>;
         pub fn archive_getMetadataItem(archive: &Archive, name: &str) -> UniquePtr<Item>;
         pub fn archive_getMetadataKeys(archive: &Archive) -> UniquePtr<CxxVector<CxxString>>;

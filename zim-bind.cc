@@ -50,11 +50,19 @@ entry_index_type archive_getArticleCount(const Archive &archive)
 {
     return archive.getArticleCount();
 }
-/*
-const Uuid getUuid(const Archive &archive) {
-    return archive.getUuid();
+
+unique_ptr<Uuid> archive_getUuid(const Archive &archive)
+{
+    try
+    {
+        return make_unique<Uuid>(archive.getUuid());
+    }
+    catch (...)
+    {
+        return NULL;
+    }
 }
-*/
+
 unique_ptr<string> archive_getMetadata(const Archive &archive, rust::Str name)
 {
     try

@@ -29,7 +29,7 @@ size_type archive_getFilesize(const Archive &archive);
 entry_index_type archive_getAllEntryCount(const Archive &archive);
 entry_index_type archive_getEntryCount(const Archive &archive);
 entry_index_type archive_getArticleCount(const Archive &archive);
-// const Uuid getUuid(const Archive &archive);
+unique_ptr<Uuid> archive_getUuid(const Archive &archive);
 unique_ptr<string> archive_getMetadata(const Archive &archive, rust::Str name);
 unique_ptr<Item> archive_getMetadataItem(const Archive &archive, rust::Str name);
 unique_ptr<vector<string>> archive_getMetadataKeys(const Archive &archive);

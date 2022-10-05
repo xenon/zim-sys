@@ -72,6 +72,25 @@ fn archive_get_entry_failure() {
     assert!(entry2.is_null());
 }
 
+// Test the uuid, assume the archive uuid is non-zero
+#[test]
+fn archive_test_uuid() {
+    let archive = ffi::archive_ctor_file(wikt);
+    assert!(!archive.is_null());
+    let archive = archive.as_ref().unwrap();
+
+    let uuid = ffi::archive_getUuid(archive);
+    assert!(!uuid.is_null());
+    let uuid = uuid.as_ref().unwrap();
+
+    let zero_uuid = ffi::uuid_ctor();
+    assert!(!zero_uuid.is_null());
+    let zero_uuid = zero_uuid.as_ref().unwrap();
+
+    // compare the uuids, the archive uuid shouldn't be zero
+    assert!(!ffi::uuid_operator_eq(uuid, zero_uuid));
+}
+
 // Trivial blob test, create and empty blob and check it's data ptr
 #[test]
 fn blob_trivial() {
@@ -225,7 +244,9 @@ fn uuid_test_from_data_and_compare() {
     assert!(!uuid_2.is_null());
     let uuid_2 = uuid_2.as_ref().unwrap();
 
+    // uuid should be equal to itself
     assert!(ffi::uuid_operator_eq(uuid, uuid));
     assert!(ffi::uuid_operator_eq(uuid_2, uuid_2));
+    // but not equal to each other
     assert!(!ffi::uuid_operator_eq(uuid, uuid_2));
 }
