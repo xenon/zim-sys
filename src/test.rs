@@ -196,7 +196,7 @@ fn suggestion_test() {
 
 // Test making a trivial uuid and reading it back
 #[test]
-fn uuid_test_1() {
+fn uuid_test_zeros() {
     let uuid = ffi::uuid_ctor();
     assert!(!uuid.is_null());
     let uuid = uuid.as_ref().unwrap();
@@ -210,7 +210,7 @@ fn uuid_test_1() {
 
 // Test making a uuid from data, reading it back and comparing it against another
 #[test]
-fn uuid_test_2() {
+fn uuid_test_from_data_and_compare() {
     let uuid = ffi::uuid_ctor_str("1111111111111111");
     assert!(!uuid.is_null());
     let uuid = uuid.as_ref().unwrap();
