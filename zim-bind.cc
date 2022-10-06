@@ -317,11 +317,18 @@ unique_ptr<string> item_getPath(const Item &item)
 }
 unique_ptr<string> item_getMimetype(const Item &item)
 {
-    return make_unique<string>(item.getMimetype());
+    try
+    {
+        // can throw in FileImpl::getMimeType
+        return make_unique<string>(item.getMimetype());
+    }
+    catch (...)
+    {
+        return NULL;
+    }
 }
 unique_ptr<Blob> item_getData(const Item &item)
 {
-    // Note: If Cluster::getBlobSize is infallible then we don't need the try
     try
     {
         return make_unique<Blob>(item.getData());
