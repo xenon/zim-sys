@@ -166,6 +166,11 @@ pub mod ffi {
             suggestioniterator: &SuggestionIterator,
         ) -> UniquePtr<Entry>;
 
+        pub fn suggestionitem_getTitle(suggestionitem: &SuggestionItem) -> UniquePtr<CxxString>;
+        pub fn suggestionitem_getPath(suggestionitem: &SuggestionItem) -> UniquePtr<CxxString>;
+        pub fn suggestionitem_getSnippet(suggestionitem: &SuggestionItem) -> UniquePtr<CxxString>;
+        pub fn suggestionitem_hasSnippet(suggestionitem: &SuggestionItem) -> bool;
+
         // FILE: uuid.h
         pub fn uuid_ctor() -> UniquePtr<Uuid>;
         pub fn uuid_ctor_str(uuid: &str) -> UniquePtr<Uuid>;

@@ -1,5 +1,7 @@
 use std::{pin::Pin, ptr::null};
 
+use crate::binding::ffi::{suggestionitem_getTitle, suggestioniterator_operator_star};
+
 use super::binding::ffi;
 
 pub static wikt: &str = "/home/aka/Downloads/wiktionary_en_all_maxi_2022-09.zim";
@@ -211,6 +213,18 @@ fn suggestion_test() {
 
     let size = ffi::suggestionresultset_size(results);
     assert!(size == 1);
+
+    let mut first = ffi::suggestionresultset_begin(&results);
+    assert!(!first.is_null());
+
+    let item = suggestioniterator_operator_star(first.pin_mut());
+    assert!(!item.is_null());
+    let item = item.as_ref().unwrap();
+
+    let title = suggestionitem_getTitle(item);
+    assert!(!title.is_null());
+
+    println!("Found: '{}'", title.to_string());
 }
 
 // Test making a trivial uuid and reading it back

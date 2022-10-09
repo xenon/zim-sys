@@ -528,6 +528,23 @@ unique_ptr<Entry> suggestioniterator_getEntry(const SuggestionIterator &suggesti
     }
 }
 
+unique_ptr<string> suggestionitem_getTitle(const SuggestionItem &suggestionitem)
+{
+    return make_unique<string>(suggestionitem.getTitle());
+}
+unique_ptr<string> suggestionitem_getPath(const SuggestionItem &suggestionitem)
+{
+    return make_unique<string>(suggestionitem.getPath());
+}
+unique_ptr<string> suggestionitem_getSnippet(const SuggestionItem &suggestionitem)
+{
+    return make_unique<string>(suggestionitem.getSnippet());
+}
+bool suggestionitem_hasSnippet(const SuggestionItem &suggestionitem)
+{
+    return suggestionitem.hasSnippet();
+}
+
 // FILE: uuid.h
 
 unique_ptr<Uuid> uuid_ctor()

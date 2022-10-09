@@ -125,6 +125,11 @@ void suggestioniterator_operator_inc(SuggestionIterator &suggestioniterator);
 unique_ptr<SuggestionItem> suggestioniterator_operator_star(SuggestionIterator &suggestioniterator);
 unique_ptr<Entry> suggestioniterator_getEntry(const SuggestionIterator &suggestioniterator);
 
+unique_ptr<string> suggestionitem_getTitle(const SuggestionItem &suggestionitem);
+unique_ptr<string> suggestionitem_getPath(const SuggestionItem &suggestionitem);
+unique_ptr<string> suggestionitem_getSnippet(const SuggestionItem &suggestionitem);
+bool suggestionitem_hasSnippet(const SuggestionItem &suggestionitem);
+
 // FILE: uuid.h
 unique_ptr<Uuid> uuid_ctor();
 unique_ptr<Uuid> uuid_ctor_str(rust::Str uuid); // uuid must be 16 characters long and valid
