@@ -6,12 +6,18 @@
 
 #[cxx::bridge]
 pub mod ffi {
+    extern "C++" {
+        pub type EntryRangeEfficient;
+        pub type IterEfficient;
+    }
+
     #[namespace = "zim"]
     extern "C++" {
         pub type Archive;
         pub type Blob;
         pub type Entry;
         pub type Item;
+
 
         pub type Searcher;
         pub type Query;
@@ -58,6 +64,15 @@ pub mod ffi {
         pub fn archive_check(archive: &Archive) -> bool;
         pub fn archive_isMultiPart(archive: &Archive) -> bool;
         pub fn archive_hasNewNamespaceScheme(archive: &Archive) -> bool;
+        pub fn archive_iterEfficient(archive: &Archive) -> UniquePtr<EntryRangeEfficient>;
+
+        pub fn entryrangeefficient_begin(range: &EntryRangeEfficient) -> UniquePtr<IterEfficient>;
+        pub fn entryrangeefficient_end(range: &EntryRangeEfficient) -> UniquePtr<IterEfficient>;
+
+        pub fn iterefficient_eq(iter: &IterEfficient, other: &IterEfficient) -> bool;
+        pub fn iterefficient_star(iter: &IterEfficient) -> UniquePtr<Entry>;
+        pub fn iterefficient_inc(iter: Pin<&mut IterEfficient>);
+
 
         // FILE: blob.h
         pub fn blob_ctor() -> UniquePtr<Blob>;
