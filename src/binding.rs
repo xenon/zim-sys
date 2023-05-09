@@ -76,7 +76,7 @@ pub mod ffi {
 
         // FILE: blob.h
         pub fn blob_ctor() -> UniquePtr<Blob>;
-        pub unsafe fn blob_data(blob: &Blob) -> *const c_char;
+        pub fn blob_data(blob: &Blob) -> *const c_char;
         pub fn blob_size(blob: &Blob) -> u64;
 
         // FILE: entry.h
