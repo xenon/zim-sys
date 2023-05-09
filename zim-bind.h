@@ -21,6 +21,18 @@ using std::vector;
 #include <zim/version.h>
 using namespace zim;
 
+class EntryRangeEfficient {
+    public:
+        EntryRangeEfficient(Archive::EntryRange<EntryOrder::efficientOrder>&& inner) : inner(inner) {};
+        Archive::EntryRange<EntryOrder::efficientOrder> inner;
+};
+
+class IterEfficient {
+    public:
+        IterEfficient(Archive::iterator<EntryOrder::efficientOrder>&& inner) : inner(inner) {};
+        Archive::iterator<EntryOrder::efficientOrder> inner;
+};
+
 // FILE: archive.h
 unique_ptr<Archive> archive_ctor_file(rust::Str path);
 // missing ctor_fd, ctor_fd_offset
@@ -57,6 +69,16 @@ bool archive_check(const Archive &archive);
 // bool archive_checkIntegrity(const Archive &archive, IntegrityCheck checkType);
 bool archive_isMultiPart(const Archive &archive);
 bool archive_hasNewNamespaceScheme(const Archive &archive);
+
+unique_ptr<EntryRangeEfficient> archive_iterEfficient(const Archive& archive);
+
+unique_ptr<IterEfficient> entryrangeefficient_begin(const EntryRangeEfficient& range);
+unique_ptr<IterEfficient> entryrangeefficient_end(const EntryRangeEfficient& range);
+
+bool iterefficient_eq(const IterEfficient& iter, const IterEfficient& other);
+unique_ptr<Entry> iterefficient_star(const IterEfficient& iter);
+void iterefficient_inc(IterEfficient& iter);
+
 
 // FILE: blob.h
 unique_ptr<Blob> blob_ctor();

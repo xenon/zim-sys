@@ -222,6 +222,36 @@ bool archive_hasNewNamespaceScheme(const Archive &archive)
     return archive.hasNewNamespaceScheme();
 }
 
+unique_ptr<EntryRangeEfficient> archive_iterEfficient(const Archive& archive) {
+    return make_unique<EntryRangeEfficient>(archive.iterEfficient());
+}
+
+unique_ptr<IterEfficient> entryrangeefficient_begin(const EntryRangeEfficient& range) {
+    return make_unique<IterEfficient>(range.inner.begin());
+}
+unique_ptr<IterEfficient> entryrangeefficient_end(const EntryRangeEfficient& range){
+    return make_unique<IterEfficient>(range.inner.end());
+}
+
+bool iterefficient_eq(const IterEfficient& iter, const IterEfficient& other) {
+    return iter.inner.operator==(other.inner);
+}
+
+unique_ptr<Entry> iterefficient_star(const IterEfficient& iter) {
+    try
+    {
+        return make_unique<Entry>(iter.inner.operator*());
+    }
+    catch (...)
+    {
+        return NULL;
+    }
+}
+void iterefficient_inc(IterEfficient& iter) {
+    iter.inner.operator++();
+}
+
+
 // FILE: blob.h
 
 unique_ptr<Blob> blob_ctor()
